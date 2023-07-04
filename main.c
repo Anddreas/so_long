@@ -216,6 +216,8 @@ void check_utils(char **arr, t_list *game)
 	// 	printf("%s\n", arr[i++]);
 }
 
+
+
 void check_symbols(char **arr, int *hasE, int *hasP, int *hasC);
 void check_missing_symbols(int hasE, int hasP, int hasC);
 
@@ -240,9 +242,9 @@ void check_symbols(char **arr, int *hasE, int *hasP, int *hasC)
 		while (arr[i][j])
 		{
 			if (arr[i][j] == 'E')
-				*hasE = 1;
+				*hasE += 1;
 			else if (arr[i][j] == 'P')
-				*hasP = 1;
+				*hasP += 1;
 			else if (arr[i][j] == 'C')
 				*hasC = 1;
 			j++;
@@ -253,91 +255,40 @@ void check_symbols(char **arr, int *hasE, int *hasP, int *hasC)
 
 void check_missing_symbols(int hasE, int hasP, int hasC)
 {
-	if (!hasE || !hasP || !hasC)
+	if (!hasC)
 	{
 		printf("Error: Missing required symbols\n");
 		exit(1);
 	}
+	if(hasP == 0 || hasE == 0)
+	{
+		printf("Error: There no Player or exit\n");
+		exit(1);
+	}
+	if(hasE >= 2 || hasP >= 2)
+	{
+		printf("Error: There are more Players or exits than '1'\n");
+		exit(1);
+	}
 }
 
+void count_coins(char **arr, t_list *game)
+{
+	int i = 0;
+	int j = 0;
 
-//stexic
-// void movement(t_list *game, int key)
-// {     
-// 	if (key == 13 || key == 126)
-// 		game->x -= 1;
-// 	if(key == 2 || key == 124)
-// 		game->y += 1;
-// 	if (key == 1 || key == 125)
-// 		game->x += 1;
-// 	if (key == 0 || key == 123)
-// 		game->y -= 1;
-// }
-
-// void graphic(t_list *game)
-// {
-// 	int x;
-// 	int y;
-	
-// 	mlx_clear_window(game->mlx, game->win);
-// 	x = 0;
-// 	while (game->arr[x])
-// 	{
-// 		y = 0;
-// 		while (game->arr[x][y])
-// 		{
-// 			// if (game->arr[x][y] == 'P')
-// 			// {
-// 			// 	game->x = x;
-// 			// 	game->y = y;
-// 			// }
-// 			if (game->arr[x][y] == 'E')
-// 			{
-// 				game->a = x;
-// 				game->b = y;
-// 			}
-// 			img(game, x, y);
-// 			y++;
-// 		}
-// 		x++;
-// 	}
-// }
-
-// int steps(t_list *game)
-// {
-// 	char *s;
-
-// 	s = ft_itoa(game->steps);
-// 	graphic(game);
-// 	mlx_string_put(game->mlx, game->win, 14,7,0x003300FF,s);
-// 	free(s);
-// 	return(0);
-// }
-
-// void check_door(t_list *game, int key)
-// {
-// 	if(game->coins == 0)
-// 	{
-// 		game->arr[game->x][game->y] = '0';
-// 		img(game, game->x, game->y);
-// 		movement(game, key);
-// 		img(game, game->x, game->y);
-// 		game->steps += 1;
-// 		steps(game);
-// 	}
-// 	else if(game->coins == 0)
-// 	{
-// 		game->arr[game->x][game->y] = '0';
-// 		movement(game, key);
-// 		game->arr[game->x][game->y] = 'P';
-// 		img(game, game->x, game->y);
-// 		game->steps += 1;
-// 		steps(game);
-// 		write(1,"Congratulations!\n",18);
-// 	}
-// }
-
-//stex
+	while (arr[i])
+	{
+		j = 0;
+		while (arr[i][j])
+		{
+			if (arr[i][j] == 'C')
+				game->coins += 1;
+			j++;
+		}
+		i++;
+	}
+}
 
 void img(t_list *game)
 {
@@ -362,9 +313,47 @@ void img(t_list *game)
 	}
 }
 
+int	ft_exit(t_list *game)
+{
+	kill(game->player_img, SIGKILL);
+	exit(0);
+	return (EXIT_SUCCESS);
+}
+
+int	exit10(t_list *game)
+{
+	int	i;
+
+	i = 0;
+	mlx_destroy_window(game->mlx, game->win);
+	free(game->mlx);
+	while (game->arr[i])
+	{
+		free(game->arr[i]);
+		i++;
+	}
+	free(game->arr);
+	exit (0);
+	return (0);
+}
+
+void check_door(t_list *game)
+{
+	if(game->coins == 0)
+	{
+		game->arr[game->x][game->y] = '0';
+
+		write(1,"Thats it)",9);
+		ft_exit(game);
+		// exit10(game);
+	}
+}
+
 void go_up(int key, t_list *game)
 {
-	if (game->arr[game->x - 1][game->y] != '1')
+	if (game->arr[game->x - 1][game -> y] == 'E')
+		check_door(game);
+	else if (game->arr[game->x - 1][game->y] != '1')
 	{
 		if(game->arr[game->x - 1][game->y] == 'C')
 			game->coins -= 1;
@@ -372,13 +361,13 @@ void go_up(int key, t_list *game)
 		game->x -= 1;
 		game->arr[game->x][game->y] = 'P';
 	}
-// 	else if(game->arr[game->x - 1][game -> y] == 'E')
-// 		check_door(game, key);
 }
 
 void go_down(int key, t_list *game)
 {
-	if (game->arr[game->x + 1][game->y] != '1')
+	if (game->arr[game->x + 1][game -> y] == 'E')
+		check_door(game);
+	else if (game->arr[game->x + 1][game->y] != '1')
 	{
 		if(game->arr[game->x + 1][game->y] == 'C')
 			game->coins -= 1;
@@ -386,14 +375,14 @@ void go_down(int key, t_list *game)
 		game->x += 1;
 		game->arr[game->x][game->y] = 'P';
 	}
-	// else if(game->arr[game->x - 1][game -> y] == 'E')
-	// 	check_door(game, key);
 }
 
 
 void go_left(int key, t_list *game)
 {
-	if (game->arr[game->x][game->y - 1] != '1')
+	if (game->arr[game->x][game -> y - 1] == 'E')
+		check_door(game);
+	else if (game->arr[game->x][game->y - 1] != '1')
 	{
 		if(game->arr[game->x][game->y - 1] == 'C')
 			game->coins -= 1;
@@ -401,13 +390,13 @@ void go_left(int key, t_list *game)
 		game->y -= 1;
 		game->arr[game->x][game->y] = 'P';
 	}
-	// else if(game->arr[game->x - 1][game -> y] == 'E')
-	// 	check_door(game, key);
 }
 
 void go_right(int key, t_list *game)
 {
-	if (game->arr[game->x][game->y + 1] != '1')
+	if(game->arr[game->x][game -> y + 1] == 'E')
+		check_door(game);
+	else if (game->arr[game->x][game->y + 1] != '1')
 	{
 		if(game->arr[game->x][game->y + 1] == 'C')
 			game->coins -= 1;
@@ -415,16 +404,8 @@ void go_right(int key, t_list *game)
 		game->y += 1;
 		game->arr[game->x][game->y] = 'P';
 	}
-	// else if(game->arr[game->x][game->y] == 'E')
-	// 	check_door(game, key);
 }
 
-int	ft_exit(t_list *game)
-{
-	kill(game->player_img, SIGKILL);
-	exit(0);
-	return (EXIT_SUCCESS);
-}
 
 int move_p(int key, t_list *game)
 {
@@ -449,12 +430,7 @@ int move_p(int key, t_list *game)
 	}
 	img(game);
 	if(key == 53)
-	{
-		// mlx_destroy_window(game->mlx, game->win);
-		// mlx_clear_window(game->mlx, game->win);
-		// exit(0);
 		ft_exit(game);
-	}
 	return(0);
 }
 
@@ -484,8 +460,10 @@ int main(int argc, char **argv)
 	check_column(game.arr);
 	check_utils2(game.arr);
 	check_utils(game.arr, &game);
+	// checkwalls(game.arr);
 	width(game.arr, &game);
 	height(game.arr, &game);
+	count_coins(game.arr,&game);
 	game.mlx = mlx_init();
 	game.mlx_win = mlx_new_window(game.mlx, game.width * 64, game.height * 64, "Hello world!");
 	game.wall_img = mlx_xpm_file_to_image(game.mlx, "images/wall.xpm", &game.i, &game.j);

@@ -7,7 +7,8 @@
 	# include <unistd.h>
 	# include <stdlib.h>
 	# include <fcntl.h>
-
+	# include <signal.h>
+	
 	// # define SIZE 32
 	// # define COLORS "RBKOGYP"
 

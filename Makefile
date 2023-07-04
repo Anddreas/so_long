@@ -147,13 +147,4 @@ clean:
 re: fclean all
 
 .PHONY: all clean fclean re bonus lib mlx
-
-
-
-
-
-
-
-
-
 #$(MLX_PATH)
