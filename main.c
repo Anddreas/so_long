@@ -350,7 +350,6 @@ void img(t_list *game)
 			mlx_put_image_to_window(game->mlx, game->mlx_win, game->background, game->k * 64, game->h * 64);
 			if (game->arr[game->h][game->k] == '1')
 				mlx_put_image_to_window(game->mlx, game->mlx_win, game->wall_img, game->k * 64, game->h * 64);
-			// (game->arr[game->h][game->k] == '0')
 			if (game->arr[game->h][game->k] == 'P')
 				mlx_put_image_to_window(game->mlx, game->mlx_win, game->player_img, game->k * 64, game->h * 64);
 			if (game->arr[game->h][game->k] == 'C')
@@ -361,16 +360,8 @@ void img(t_list *game)
 		}
 		game->h++;
 	}
-	// mlx_put_image_to_window(game->mlx, game ->win, game->background, x * 64, y * 64);
-	// if(game->arr[x][y] == '1')
-	// 	mlx_put_image_to_window(game->mlx, game ->win, game->wall_img, x * 64, y * 64);
-	// if(game->arr[x][y] == 'E')
-	// 	c_exit(game);
-	// if(game->arr[x][y] == 'C')
-	// 	mlx_put_image_to_window(game->mlx, game ->win, game->coin_img, x * 64, y * 64);
-	// if(game->arr[x][y] == 'P')
-	// 	mlx_put_image_to_window(game->mlx, game ->win, game->player_img, x * 64, y * 64);
 }
+
 void go_up(int key, t_list *game)
 {
 	if (game->arr[game->x - 1][game->y] != '1')
@@ -428,13 +419,15 @@ void go_right(int key, t_list *game)
 	// 	check_door(game, key);
 }
 
+int	ft_exit(t_list *game)
+{
+	kill(game->player_img, SIGKILL);
+	exit(0);
+	return (EXIT_SUCCESS);
+}
+
 int move_p(int key, t_list *game)
 {
-	// int i = -1;
-	// while (game->arr[++i])
-	// 	printf ("%s\n", game->arr[i]);
-	// printf ("\n");
-	// printf("x:%d\n y:%d\n",game->x,game->y);
 	if(key == 2 || key == 124)
 	{
 		go_right(key, game);
@@ -457,9 +450,10 @@ int move_p(int key, t_list *game)
 	img(game);
 	if(key == 53)
 	{
-		mlx_destroy_window(game->mlx, game->win);
-		mlx_clear_window(game->mlx, game->win);
-		exit(0);
+		// mlx_destroy_window(game->mlx, game->win);
+		// mlx_clear_window(game->mlx, game->win);
+		// exit(0);
+		ft_exit(game);
 	}
 	return(0);
 }
@@ -481,7 +475,7 @@ int main(int argc, char **argv)
 	(void)argc;
 
 
-	if(check_ber(argv, &game) == 1)//esi araj check_ber(game->fd, argv) voric heto bass erorr
+	if(check_ber(argv, &game) == 1)//essi araj check_ber(game->fd, argv) voric heto bass erorr
 		game.fd = open(argv[1], O_RDONLY);
 	game.res = process_file(game.fd, &game);//mekel esi dzeluc heto darav bass error
 	game.q = ft_strtrim(game.res,"\n");
@@ -501,24 +495,9 @@ int main(int argc, char **argv)
 	game.open_door_img = mlx_xpm_file_to_image(game.mlx, "images/open_door.xpm", &game.i, &game.j);
 	game.close_door_img = mlx_xpm_file_to_image(game.mlx, "images/close_door.xpm", &game.i, &game.j);
 	img(&game);
-	// while(game.arr[game.h])
-	// {
-	// 	game.k = 0;
-	// 	while(game.arr[game.h][game.k])
-	// 	{
-	// 		if (game.arr[game.h][game.k] == '1')
-	// 			mlx_put_image_to_window(game.mlx, game.mlx_win, game.wall_img, game.k * 64, game.h * 64);
-	// 		if (game.arr[game.h][game.k] == 'P')
-	// 			mlx_put_image_to_window(game.mlx, game.mlx_win, game.player_img, game.k * 64, game.h * 64);
-	// 		if (game.arr[game.h][game.k] == 'C')
-	// 			mlx_put_image_to_window(game.mlx, game.mlx_win, game.coin_img, game.k * 64, game.h * 64);
-	// 		if (game.arr[game.h][game.k] == 'E')
-	// 			mlx_put_image_to_window(game.mlx, game.mlx_win, game.close_door_img, game.k * 64, game.h * 64);
-	// 		game.k++;
-	// 	}
-	// 	game.h++;
-	// }
+
 	mlx_hook(game.mlx_win, 2, 1L << 0, move_p, &game);
+	mlx_hook(game.mlx_win, 17, 1L << 0, ft_exit, &game);
 	mlx_loop(game.mlx);
 	return 0;
 }
