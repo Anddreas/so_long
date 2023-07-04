@@ -173,10 +173,14 @@ void	check_column(char **arr)
 	}
 }
 
+
+
 void check_utils(char **arr, t_list *game)
 {
 	int i;
 	int j;
+	int x;
+	int y;
 	i = 0;
 	while (arr[i])
 	{
@@ -205,9 +209,12 @@ void check_utils(char **arr, t_list *game)
 				printf ("i = %d, j = %d\n", i, j);
 				game->x = i;
 				game->y = j;
+				x = i;
+				y = j;
 				break;
 			}
 			j++;
+
 		}
 		i++;
 	}
@@ -253,6 +260,7 @@ void check_symbols(char **arr, int *hasE, int *hasP, int *hasC)
 	}
 }
 
+
 void check_missing_symbols(int hasE, int hasP, int hasC)
 {
 	if (!hasC)
@@ -271,6 +279,7 @@ void check_missing_symbols(int hasE, int hasP, int hasC)
 		exit(1);
 	}
 }
+
 
 void count_coins(char **arr, t_list *game)
 {
@@ -320,22 +329,6 @@ int	ft_exit(t_list *game)
 	return (EXIT_SUCCESS);
 }
 
-int	exit10(t_list *game)
-{
-	int	i;
-
-	i = 0;
-	mlx_destroy_window(game->mlx, game->win);
-	free(game->mlx);
-	while (game->arr[i])
-	{
-		free(game->arr[i]);
-		i++;
-	}
-	free(game->arr);
-	exit (0);
-	return (0);
-}
 
 void check_door(t_list *game)
 {
@@ -345,7 +338,6 @@ void check_door(t_list *game)
 
 		write(1,"Thats it)",9);
 		ft_exit(game);
-		// exit10(game);
 	}
 }
 
@@ -406,7 +398,6 @@ void go_right(int key, t_list *game)
 	}
 }
 
-
 int move_p(int key, t_list *game)
 {
 	if(key == 2 || key == 124)
@@ -442,8 +433,51 @@ void c_exit(t_list *game)
 		mlx_put_image_to_window(game->mlx, game ->win, game->close_door_img, game->a * 64, game->b * 64);
 }
 
+void	flood_fill(t_list *game, char **map, int x, int y)
+{
+	if (map[x][y] == '1' || map[x][y] == 'N' || x < 1 || y < 1
+		|| y > game->width || x > game->height)
+		return ;
+	map[x][y] = '1';
+	flood_fill(game, map, x - 1, y);
+	flood_fill(game, map, x + 1, y);
+	flood_fill(game, map, x, y - 1);
+	flood_fill(game, map, x, y + 1);
+}
 
+int logic(t_list *game)
+{
+	int		x;
+	int		y;
+	int		i;
+	int		j;
 
+	x = game->x;
+	y = game->y;
+	i = 0;
+	flood_fill(game, game->arr, x, y);
+	while(game->arr[i])
+	{
+		j = 0;
+		while(game->arr[i][j])
+		{
+			if(game->arr[i][j] == 'E' || game->arr[i][j] == 'C')
+				return(0);
+			j++;
+		}
+		i++;
+	}
+	return(1);
+}
+
+void last_check(t_list *game)
+{
+	if(logic(game) == 0)
+	{
+		printf("Error555");
+		exit(1);
+	}
+}
 
 int main(int argc, char **argv)
 {
@@ -451,19 +485,19 @@ int main(int argc, char **argv)
 	(void)argc;
 
 
-	if(check_ber(argv, &game) == 1)//essi araj check_ber(game->fd, argv) voric heto bass erorr
+	if(check_ber(argv, &game) == 1)
 		game.fd = open(argv[1], O_RDONLY);
-	game.res = process_file(game.fd, &game);//mekel esi dzeluc heto darav bass error
+	game.res = process_file(game.fd, &game);
 	game.q = ft_strtrim(game.res,"\n");
 	game.arr = check(game.q, &game);
 	check_row(game.arr);
 	check_column(game.arr);
 	check_utils2(game.arr);
 	check_utils(game.arr, &game);
-	// checkwalls(game.arr);
 	width(game.arr, &game);
 	height(game.arr, &game);
 	count_coins(game.arr,&game);
+	// last_check(&game);
 	game.mlx = mlx_init();
 	game.mlx_win = mlx_new_window(game.mlx, game.width * 64, game.height * 64, "Hello world!");
 	game.wall_img = mlx_xpm_file_to_image(game.mlx, "images/wall.xpm", &game.i, &game.j);
