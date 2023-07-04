@@ -45,7 +45,10 @@
 		int			height;
 	}	t_list;
 	
-	int ft_strlen1(char *str);
+	char	**ft_strdup_matrix(const char **matrix, int rows, int cols);
+	char	*ft_strdup2(const char *s1);
+	size_t	ft_strlcpy2(char *dst, const char *src, size_t size);
+	int		ft_strlen1(char *str);
 	char	*ft_itoa(int n);
 	void	width(char **map, t_list *game);
 	void	height(char **map, t_list *game);

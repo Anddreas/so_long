@@ -107,6 +107,7 @@ SRCS =  main.c						\
 		map.c						\
 		utils/ft_split.c			\
 		utils/ft_strncmp.c			\
+		utils/ft_strdup2.c			\
 		utils/ft_strrchr.c			\
 		utils/ft_strtrim.c			\
 		utils/ft_itoa.c				\

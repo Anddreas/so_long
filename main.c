@@ -278,6 +278,7 @@ void check_missing_symbols(int hasE, int hasP, int hasC)
 		printf("Error: There are more Players or exits than '1'\n");
 		exit(1);
 	}
+	
 }
 
 
@@ -435,7 +436,7 @@ void c_exit(t_list *game)
 
 void	flood_fill(t_list *game, char **map, int x, int y)
 {
-	if (map[x][y] == '1' || map[x][y] == 'N' || x < 1 || y < 1
+	if (map[x][y] == '1' || x < 1 || y < 1
 		|| y > game->width || x > game->height)
 		return ;
 	map[x][y] = '1';
@@ -452,16 +453,19 @@ int logic(t_list *game)
 	int		i;
 	int		j;
 
+	i = 0;
+	int rows = matrix_rows(game->arr);
+	int colmn = matrix_column(game->arr);
+	char **arr2 = ft_strdup_matrix(game->arr, rows, colmn);
 	x = game->x;
 	y = game->y;
-	i = 0;
-	flood_fill(game, game->arr, x, y);
-	while(game->arr[i])
+	flood_fill(game, arr2, x, y);
+	while(arr2[i])
 	{
 		j = 0;
-		while(game->arr[i][j])
+		while(arr2[i][j])
 		{
-			if(game->arr[i][j] == 'E' || game->arr[i][j] == 'C')
+			if(arr2[i][j] == 'E' || arr2[i][j] == 'C')
 				return(0);
 			j++;
 		}
@@ -474,9 +478,11 @@ void last_check(t_list *game)
 {
 	if(logic(game) == 0)
 	{
-		printf("Error555");
+		printf("Error556");
 		exit(1);
 	}
+	else
+		printf("Excelent");
 }
 
 int main(int argc, char **argv)
@@ -497,7 +503,7 @@ int main(int argc, char **argv)
 	width(game.arr, &game);
 	height(game.arr, &game);
 	count_coins(game.arr,&game);
-	// last_check(&game);
+	last_check(&game);
 	game.mlx = mlx_init();
 	game.mlx_win = mlx_new_window(game.mlx, game.width * 64, game.height * 64, "Hello world!");
 	game.wall_img = mlx_xpm_file_to_image(game.mlx, "images/wall.xpm", &game.i, &game.j);
