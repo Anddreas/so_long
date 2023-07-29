@@ -460,7 +460,7 @@ int logic(t_list *game)
 	x = game->x;
 	y = game->y;
 	flood_fill(game, arr2, x, y);
-	while(arr2[i])
+	while(arr2 && arr2[i])
 	{
 		j = 0;
 		while(arr2[i][j])
