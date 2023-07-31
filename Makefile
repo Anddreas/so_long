@@ -105,6 +105,12 @@ SRCS =  main.c						\
 		gnl/get_next_line.c			\
 		gnl/get_next_line_utils.c	\
 		map.c						\
+		check1.c					\
+		check2.c					\
+		check3.c					\
+		player_move.c				\
+		check_and_exit.c			\
+		coins_and_lastcheck.c		\
 		utils/ft_split.c			\
 		utils/ft_strncmp.c			\
 		utils/ft_strdup2.c			\
