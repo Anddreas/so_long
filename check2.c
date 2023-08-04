@@ -29,6 +29,15 @@ char	**check(char *q, t_list *game)
 		i++;
 	}
 	arr = ft_split(q, '\n');
+	check_verevini_sharunakutyun(arr, game);
+	return (arr);
+}
+
+char	check_verevini_sharunakutyun(char **arr, t_list *game)
+{
+	int		i;
+	size_t	n;
+
 	i = 0;
 	n = ft_strlen1(arr[0]);
 	while (arr[i] != NULL)
@@ -41,16 +50,6 @@ char	**check(char *q, t_list *game)
 		i++;
 	}
 	return (arr);
-}
-
-int	matrix_rows(char **arr)
-{
-	int	row;
-
-	row = 0;
-	while (arr[row])
-		row++;
-	return (row);
 }
 
 int	matrix_column(char **arr)

@@ -35,8 +35,17 @@ void	check_utils(char **arr, t_list *game)
 		}
 		i++;
 	}
+	check_utils_sharunakutyun(arr, game);
+}
+
+void	check_utils_sharunakutyun(char **arr, t_list *game)
+{
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+
 	i = 0;
-	printf ("%d\n", i);
 	while (arr[i])
 	{
 		j = 0;
@@ -44,7 +53,6 @@ void	check_utils(char **arr, t_list *game)
 		{
 			if (arr[i][j] == 'P')
 			{
-				printf ("i = %d, j = %d\n", i, j);
 				game->x = i;
 				game->y = j;
 				x = i;
@@ -57,8 +65,15 @@ void	check_utils(char **arr, t_list *game)
 	}
 }
 
-void	check_symbols(char **arr, int *hasE, int *hasP, int *hasC);
-void	check_missing_symbols(int hasE, int hasP, int hasC);
+int	matrix_rows(char **arr)
+{
+	int	row;
+
+	row = 0;
+	while (arr[row])
+		row++;
+	return (row);
+}
 
 void	check_utils2(char **arr)
 {

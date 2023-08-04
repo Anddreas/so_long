@@ -23,6 +23,8 @@ void	go_up(int key, t_list *game)
 		game->arr[game->x][game->y] = '0';
 		game->x -= 1;
 		game->arr[game->x][game->y] = 'P';
+		game->steps += 1;
+		count_steps(game);
 	}
 }
 
@@ -37,6 +39,8 @@ void	go_down(int key, t_list *game)
 		game->arr[game->x][game->y] = '0';
 		game->x += 1;
 		game->arr[game->x][game->y] = 'P';
+		game->steps += 1;
+		count_steps(game);
 	}
 }
 
@@ -51,6 +55,8 @@ void	go_left(int key, t_list *game)
 		game->arr[game->x][game->y] = '0';
 		game->y -= 1;
 		game->arr[game->x][game->y] = 'P';
+		game->steps += 1;
+		count_steps(game);
 	}
 }
 
@@ -65,6 +71,8 @@ void	go_right(int key, t_list *game)
 		game->arr[game->x][game->y] = '0';
 		game->y += 1;
 		game->arr[game->x][game->y] = 'P';
+		game->steps += 1;
+		count_steps(game);
 	}
 }
 

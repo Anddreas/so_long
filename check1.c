@@ -50,7 +50,7 @@ int	ft_strstr(char *str, char *to_find)
 	return (0);
 }
 
-int	check_ber(char **argv, t_list *game)
+int	check_ber(char **argv)
 {
 	char	**map;
 
@@ -63,13 +63,12 @@ int	check_ber(char **argv, t_list *game)
 		return (0);
 }
 
-char	*process_file(int a, t_list *game)
+char	*process_file(int a)
 {
 	char	*res;
 	char	*line;
 	char	*tmp;
 
-	// *res = NULL;
 	if (a < 0)
 		return (NULL);
 	while (1)
@@ -86,6 +85,11 @@ char	*process_file(int a, t_list *game)
 			free(res);
 		res = tmp;
 	}
+	return (res);
+}
+
+char	*pr(char *res)
+{
 	if (res == NULL)
 	{
 		printf("Error reading file\n");

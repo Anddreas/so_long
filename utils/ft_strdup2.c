@@ -12,25 +12,7 @@
 
 #include "../so_long.h"
 
-// char	*ft_strdup2(const char *s1)
-// {
-// 	char	*str;
-// 	int		str_len;
-
-// 	if (!s1)
-// 		return (0);
-// 	str_len = ft_strlen(s1) + 1;
-// 	str = malloc(str_len);
-// 	if (str)
-// 	{
-// 		ft_strlcpy2(str, s1, str_len);
-// 		return (str);
-// 	}
-// 	return (NULL);
-// }
-
-
-char	**ft_strdup_matrix(const char **matrix, int rows, int cols)
+char	**ft_strdup_matrix(char **matrix, int rows, int cols)
 {
 	char	**duplicate;
 	int		i;

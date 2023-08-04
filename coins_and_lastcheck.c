@@ -86,6 +86,30 @@ void	last_check(t_list *game)
 		printf("Error556");
 		exit(1);
 	}
-	else
-		printf("Excelent");
+}
+
+int	logic2(t_list *game, char **arr2, int rows, int colmn)
+{
+	int	x;
+	int	y;
+	int	i;
+	int	j;
+
+	i = 0;
+	x = game->x;
+	y = game->y;
+	arr2 = ft_strdup_matrix(game->arr, rows, colmn);
+	flood_fill(game, arr2, x, y);
+	while (arr2 && arr2[i])
+	{
+		j = 0;
+		while (arr2[i][j])
+		{
+			if (arr2[i][j] == 'E' || arr2[i][j] == 'C')
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
