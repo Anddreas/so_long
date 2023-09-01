@@ -16,8 +16,6 @@ void	check_utils(char **arr, t_list *game)
 {
 	int	i;
 	int	j;
-	int	x;
-	int	y;
 
 	i = 0;
 	while (arr[i])

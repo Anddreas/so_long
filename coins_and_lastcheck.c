@@ -88,7 +88,7 @@ void	last_check(t_list *game)
 	}
 }
 
-int	logic2(t_list *game, char **arr2, int rows, int colmn)
+int	logic2(t_list *game, char **arr2, int rows)
 {
 	int	x;
 	int	y;
@@ -98,7 +98,7 @@ int	logic2(t_list *game, char **arr2, int rows, int colmn)
 	i = 0;
 	x = game->x;
 	y = game->y;
-	arr2 = ft_strdup_matrix(game->arr, rows, colmn);
+	arr2 = ft_strdup_matrix(game->arr, rows);
 	flood_fill(game, arr2, x, y);
 	while (arr2 && arr2[i])
 	{

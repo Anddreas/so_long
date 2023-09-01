@@ -12,7 +12,7 @@
 
 #include "../so_long.h"
 
-char	**ft_strdup_matrix(char **matrix, int rows, int cols)
+char	**ft_strdup_matrix(char **matrix, int rows)
 {
 	char	**duplicate;
 	int		i;
@@ -22,7 +22,8 @@ char	**ft_strdup_matrix(char **matrix, int rows, int cols)
 	duplicate = (char **)malloc((rows + 1) * sizeof(char *));
 	if (!duplicate)
 		return (NULL);
-	for (i = 0; i < rows; i++)
+	i = 0;
+	while (i < rows)
 	{
 		duplicate[i] = ft_strdup(matrix[i]);
 		if (!duplicate[i])
@@ -32,6 +33,7 @@ char	**ft_strdup_matrix(char **matrix, int rows, int cols)
 			free(duplicate);
 			return (NULL);
 		}
+		i++;
 	}
 	duplicate[i] = NULL;
 	return (duplicate);

@@ -17,6 +17,8 @@ int	ft_strlen1(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (i);
 	while (str[i])
 		i++;
 	return (i);
@@ -69,25 +71,28 @@ char	*process_file(int a)
 	char	*line;
 	char	*tmp;
 
+	res = NULL;
+	line = NULL;
+	tmp = NULL;
 	if (a < 0)
 		return (NULL);
 	while (1)
-	{
-		line = get_next_line(a);
+	{	
 		if (line == NULL)
 			break ;
+		line = get_next_line(a);
 		if (!res)
 			tmp = ft_strdup(line);
 		else
 			tmp = ft_strjoin(res, line);
 		free(line);
-		if (res)
-			free(res);
 		res = tmp;
 	}
+	// if (line == NULL)
+	// 	exit (0);
 	return (res);
 }
-
+ 
 char	*pr(char *res)
 {
 	if (res == NULL)

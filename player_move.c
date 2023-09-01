@@ -12,8 +12,9 @@
 
 #include "so_long.h"
 
-void	go_up(int key, t_list *game)
+void	go_up(t_list *game)
 {
+	// game->steps = 0;
 	if (game->arr[game->x - 1][game -> y] == 'E')
 		check_door(game);
 	else if (game->arr[game->x - 1][game->y] != '1')
@@ -28,8 +29,9 @@ void	go_up(int key, t_list *game)
 	}
 }
 
-void	go_down(int key, t_list *game)
+void	go_down(t_list *game)
 {
+	// game->steps = 0;
 	if (game->arr[game->x + 1][game -> y] == 'E')
 		check_door(game);
 	else if (game->arr[game->x + 1][game->y] != '1')
@@ -44,8 +46,9 @@ void	go_down(int key, t_list *game)
 	}
 }
 
-void	go_left(int key, t_list *game)
+void	go_left(t_list *game)
 {
+	// game->steps = 0;
 	if (game->arr[game->x][game -> y - 1] == 'E')
 		check_door(game);
 	else if (game->arr[game->x][game->y - 1] != '1')
@@ -60,8 +63,9 @@ void	go_left(int key, t_list *game)
 	}
 }
 
-void	go_right(int key, t_list *game)
+void	go_right(t_list *game)
 {
+	// game->steps = 0;
 	if (game->arr[game->x][game -> y + 1] == 'E')
 		check_door(game);
 	else if (game->arr[game->x][game->y + 1] != '1')
@@ -80,25 +84,26 @@ int	move_p(int key, t_list *game)
 {
 	if (key == 2 || key == 124)
 	{
-		go_right(key, game);
+		go_right(game);
 	}
 	img(game);
 	if (key == 0 || key == 123)
 	{
-		go_left(key, game);
+		go_left(game);
 	}
 	img(game);
 	if (key == 13 || key == 126)
 	{
-		go_up(key, game);
+		go_up(game);
 	}
 	img(game);
 	if (key == 1 || key == 125)
 	{
-		go_down(key, game);
+		go_down(game);
 	}
 	img(game);
 	if (key == 53)
 		ft_exit(game);
+	// system("leaks so_long");
 	return (0);
 }

@@ -14,7 +14,7 @@ NAME = so_long
 CC = cc
 MLX = mlx
 # MLX_PATH = mlx/libmlx.a
-CFLAGS = #-Wall -Wextra -Werror  #-g -fsanitize=address -g 
+CFLAGS = -Wall -Wextra -Werror  #-g -fsanitize=address -g 
 LFLAGS = -L$(MLX) -lmlx -framework OpenGL -framework AppKit
 SRCS =  main.c						\
 		gnl/get_next_line.c			\

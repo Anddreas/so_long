@@ -14,7 +14,7 @@
 
 int	ft_exit(t_list *game)
 {
-	// kill(game->player_img, SIGKILL);
+	(void)game;
 	exit(0);
 	return (EXIT_SUCCESS);
 }
@@ -25,7 +25,6 @@ void	check_door(t_list *game)
 	{
 		game->arr[game->x][game->y] = '0';
 		write(1, "Thats it)", 9);
-		system("leaks so_long");
 		ft_exit(game);
 	}
 }
@@ -62,7 +61,7 @@ int	logic(t_list *game)
 	i = 0;
 	rows = matrix_rows(game->arr);
 	colmn = matrix_column(game->arr);
-	arr2 = ft_strdup_matrix(game->arr, rows, colmn);
-	i = logic2(game, arr2, rows, colmn);
+	arr2 = ft_strdup_matrix(game->arr, rows);
+	i = logic2(game, arr2, rows);
 	return (i);
 }

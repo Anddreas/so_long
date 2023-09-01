@@ -12,10 +12,9 @@
 
 #include "so_long.h"
 
-char	**check(char *q, t_list *game)
+char	**check(char *q)
 {
 	int		i;
-	size_t	n;
 	char	**arr;
 
 	i = 0;
@@ -29,18 +28,18 @@ char	**check(char *q, t_list *game)
 		i++;
 	}
 	arr = ft_split(q, '\n');
-	check_verevini_sharunakutyun(arr, game);
+	check_verevini_sharunakutyun(arr);
 	return (arr);
 }
 
-char	check_verevini_sharunakutyun(char **arr, t_list *game)
+char	**check_verevini_sharunakutyun(char **arr)
 {
-	int		i;
-	size_t	n;
+	int	i;
+	int	n;
 
 	i = 0;
 	n = ft_strlen1(arr[0]);
-	while (arr[i] != NULL)
+	while (arr[i])
 	{
 		if (ft_strlen1(arr[i]) != n)
 		{
