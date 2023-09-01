@@ -88,8 +88,8 @@ char	*process_file(int a)
 		free(line);
 		res = tmp;
 	}
-	// if (line == NULL)
-	// 	exit (0);
+	if (line == NULL)
+		exit (0);
 	return (res);
 }
  
