@@ -78,9 +78,9 @@ char	*process_file(int a)
 		return (NULL);
 	while (1)
 	{	
+		line = get_next_line(a);
 		if (line == NULL)
 			break ;
-		line = get_next_line(a);
 		if (!res)
 			tmp = ft_strdup(line);
 		else
@@ -88,8 +88,8 @@ char	*process_file(int a)
 		free(line);
 		res = tmp;
 	}
-	if (line == NULL)
-		exit (0);
+	// if (line == NULL)
+	// 	exit (0);
 	return (res);
 }
  

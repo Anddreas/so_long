@@ -21,10 +21,14 @@ int	ft_exit(t_list *game)
 
 void	check_door(t_list *game)
 {
+	char	*a;
 	if (game->coins == 0)
 	{
 		game->arr[game->x][game->y] = '0';
-		write(1, "Thats it)", 9);
+		game->steps += 1;
+		a = ft_itoa(game->steps);
+		write(1, a, ft_strlen(a));
+		write(1, "\nThats it)", 9);
 		ft_exit(game);
 	}
 }

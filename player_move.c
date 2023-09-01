@@ -104,6 +104,7 @@ int	move_p(int key, t_list *game)
 	img(game);
 	if (key == 53)
 		ft_exit(game);
+	// game->steps += 1;
 	// system("leaks so_long");
 	return (0);
 }

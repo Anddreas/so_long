@@ -36,6 +36,7 @@ int	main(int argc, char **argv)
 	t_list	game;
 
 	(void)argc;
+	game.steps = 0;
 	setup_game(&game, argv);
 	game.mlx = mlx_init();
 	game.mlx_win = mlx_new_window(game.mlx, game.width * 64, \
