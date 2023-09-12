@@ -65,6 +65,34 @@ int	check_ber(char **argv)
 		return (0);
 }
 
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*k;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	k = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!k)
+		return (NULL);
+	while (s1 && s1[i])
+	{
+		k[i] = s1[i];
+		i++;
+	}
+	while (s2 && s2[j])
+	{
+		k[i++] = s2[j++];
+	}
+	if (s1)
+		free(s1);
+	k[i] = '\0';
+	return (k);
+}
+
 char	*process_file(int a)
 {
 	char	*res;
@@ -84,15 +112,15 @@ char	*process_file(int a)
 		if (!res)
 			tmp = ft_strdup(line);
 		else
-			tmp = ft_strjoin(res, line);
+			tmp = ft_strjoin_free(res, line);
 		free(line);
 		res = tmp;
 	}
-	// if (line == NULL)
-	// 	exit (0);
+	if (tmp == NULL)
+		exit (0);
 	return (res);
 }
- 
+
 char	*pr(char *res)
 {
 	if (res == NULL)

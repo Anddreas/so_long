@@ -14,6 +14,8 @@
 
 void	check_missing_symbols(int hasE, int hasP, int hasC)
 {
+	(void)hasP;
+	(void)hasE;
 	if (!hasC)
 	{
 		printf("Error: Missing required symbols\n");
@@ -88,6 +90,19 @@ void	last_check(t_list *game)
 	}
 }
 
+void	free_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+
 int	logic2(t_list *game, char **arr2, int rows)
 {
 	int	x;
@@ -100,6 +115,12 @@ int	logic2(t_list *game, char **arr2, int rows)
 	y = game->y;
 	arr2 = ft_strdup_matrix(game->arr, rows);
 	flood_fill(game, arr2, x, y);
+	while (arr2[i])
+	{
+		printf("%s\n",arr2[i]);
+		++i;
+	}
+	i = 0;
 	while (arr2 && arr2[i])
 	{
 		j = 0;
@@ -111,5 +132,6 @@ int	logic2(t_list *game, char **arr2, int rows)
 		}
 		i++;
 	}
+	free_map(arr2);
 	return (1);
 }

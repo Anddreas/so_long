@@ -43,6 +43,7 @@ typedef struct s_list
 	int			steps;
 	int			i;
 	int			b;
+	int			lk;
 	int			a;
 	int			j;
 	int			x;

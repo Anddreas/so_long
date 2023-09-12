@@ -30,9 +30,5 @@ char	*ft_strjoin_1(char const *s1, char const *s2)
 	return (result);
 }
 /*
-Datark kartez seg fault
 exit coin illegal map
-big map
-lik liker
-kaylery arachi u verchi
 */

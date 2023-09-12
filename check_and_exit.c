@@ -22,6 +22,7 @@ int	ft_exit(t_list *game)
 void	check_door(t_list *game)
 {
 	char	*a;
+
 	if (game->coins == 0)
 	{
 		game->arr[game->x][game->y] = '0';
@@ -45,9 +46,13 @@ void	c_exit(t_list *game)
 
 void	flood_fill(t_list *game, char **map, int x, int y)
 {
+	// if (map[y][x] == 'E')
+	// 	return ;
 	if (map[x][y] == '1' || x < 1 || y < 1
 		|| y > game->width || x > game->height)
 		return ;
+	// else if (map[x][y] == 'E')
+	// 	return ;
 	map[x][y] = '1';
 	flood_fill(game, map, x - 1, y);
 	flood_fill(game, map, x + 1, y);
@@ -63,9 +68,9 @@ int	logic(t_list *game)
 	int		i;
 
 	i = 0;
+	arr2 = NULL;
 	rows = matrix_rows(game->arr);
 	colmn = matrix_column(game->arr);
-	arr2 = ft_strdup_matrix(game->arr, rows);
 	i = logic2(game, arr2, rows);
 	return (i);
 }
