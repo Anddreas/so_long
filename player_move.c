@@ -16,8 +16,17 @@ void	go_up(t_list *game)
 {
 	if (game->arr[game->x - 1][game -> y] == 'E')
 		check_door(game);
-	else if (game->arr[game->x - 1][game->y] != '1')
+	if (game->arr[game->x - 1][game->y] != '1')
 	{
+		if (game->lk == 1)
+		{
+			game->arr[game->x + 1][game->y] = 'E';
+			game->lk = 0;
+		}
+		if (game->arr[game->x - 1][game->y] == 'E')
+		{
+			game->lk = 1;
+		}
 		if (game->arr[game->x - 1][game->y] == 'C')
 			game->coins -= 1;
 		game->arr[game->x][game->y] = '0';
@@ -32,8 +41,17 @@ void	go_down(t_list *game)
 {
 	if (game->arr[game->x + 1][game -> y] == 'E')
 		check_door(game);
-	else if (game->arr[game->x + 1][game->y] != '1')
+	if (game->arr[game->x + 1][game->y] != '1')
 	{
+		if (game->lk == 1)
+		{
+			game->arr[game->x - 1][game->y] = 'E';
+			game->lk = 0;
+		}
+		if (game->arr[game->x + 1][game->y] == 'E')
+		{
+			game->lk = 1;
+		}
 		if (game->arr[game->x + 1][game->y] == 'C')
 			game->coins -= 1;
 		game->arr[game->x][game->y] = '0';
@@ -48,8 +66,17 @@ void	go_left(t_list *game)
 {
 	if (game->arr[game->x][game -> y - 1] == 'E')
 		check_door(game);
-	else if (game->arr[game->x][game->y - 1] != '1')
+	if (game->arr[game->x][game->y - 1] != '1')
 	{
+		if (game->lk == 1)
+		{
+			game->arr[game->x][game->y + 1] = 'E';
+			game->lk = 0;
+		}
+		if (game->arr[game->x][game->y - 1] == 'E')
+		{
+			game->lk = 1;
+		}
 		if (game->arr[game->x][game->y - 1] == 'C')
 			game->coins -= 1;
 		game->arr[game->x][game->y] = '0';
@@ -62,21 +89,22 @@ void	go_left(t_list *game)
 
 void	go_right(t_list *game)
 {
+
 	if (game->arr[game->x][game -> y + 1] == 'E')
 		check_door(game);
-	else if (game->arr[game->x][game->y + 1] != '1')
+	if (game->arr[game->x][game->y + 1] != '1')
 	{
+		if (game->lk == 1)
+		{
+			game->arr[game->x][game->y - 1] = 'E';
+			game->lk = 0;
+		}
+		if (game->arr[game->x][game->y + 1] == 'E')
+		{
+			game->lk = 1;
+		}
 		if (game->arr[game->x][game->y + 1] == 'C')
 			game->coins -= 1;
-		// if (game->lk == 1)
-		// {
-		// 	game->arr[game->x][game->y] = 'E';
-		// 	game->lk = 2;
-		// }
-		// if (game->arr[game->x][game->y + 1] == 'E')
-		// {
-		// 	game->lk = 1;
-		// }
 		game->arr[game->x][game->y] = '0';
 		game->y += 1;
 		game->arr[game->x][game->y] = 'P';
@@ -87,6 +115,8 @@ void	go_right(t_list *game)
 
 int	move_p(int key, t_list *game)
 {
+	// game->lk = 0;
+	int i = 0;
 	if (key == 2 || key == 124)
 		go_right(game);
 	img(game);
@@ -98,6 +128,11 @@ int	move_p(int key, t_list *game)
 	img(game);
 	if (key == 1 || key == 125)
 		go_down(game);
+	while(game->arr[i])
+	{
+		printf("%s\n",game->arr[i]);
+		i++;
+	}
 	img(game);
 	if (key == 53)
 		ft_exit(game);

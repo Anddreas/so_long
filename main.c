@@ -36,6 +36,7 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	game.steps = 0;
+	game.lk = 0;
 	if (argc == 2)
 	{
 		setup_game(&game, argv);
