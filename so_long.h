@@ -66,7 +66,7 @@ int		logic2(t_list *game, char **arr2, int rows);
 int		logic(t_list *game);
 int		ft_exit(t_list *game);
 int		move_p(int key, t_list *game);
-char	*process_file(int a);
+char	*process_file(int a, int cond, char *res, char *line);
 char	**check(char *q);
 char	**ft_strdup_matrix(char **matrix, int rows);
 char	*ft_strdup2(const char *s1);
@@ -75,6 +75,7 @@ char	**check_verevini_sharunakutyun(char **arr);
 char	**ft_split(char const *s, char c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strrchr(const char *s, int c);
+char	*ft_strjoin_free(char *s1, char *s2);
 char	*ft_strjoin_1(char const *s1, char const *s2);
 void	check_row(char **arr);
 void	check_column(char **arr);
@@ -98,6 +99,7 @@ void	count_coins(char **arr, t_list *game);
 void	img(t_list *game);
 void	last_check(t_list *game);
 void	check_utils_sharunakutyun(char **arr, t_list *game);
+void	error_check(char *line, char *tmp, char *res, int a);
 size_t	ft_strlcpy2(char *dst, const char *src, size_t size);
 
 #endif

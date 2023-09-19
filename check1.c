@@ -93,22 +93,23 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	return (k);
 }
 
-char	*process_file(int a)
+char	*process_file(int a, int cond, char *res, char *line)
 {
-	char	*res;
-	char	*line;
 	char	*tmp;
 
-	res = NULL;
-	line = NULL;
 	tmp = NULL;
 	if (a < 0)
 		return (NULL);
 	while (1)
-	{	
+	{
+		cond++;
 		line = get_next_line(a);
 		if (line == NULL)
+		{
+			if (cond == 1)
+				printf("Error\n");
 			break ;
+		}
 		if (!res)
 			tmp = ft_strdup(line);
 		else

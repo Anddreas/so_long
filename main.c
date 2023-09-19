@@ -16,7 +16,12 @@ void	setup_game(t_list *game, char **argv)
 {
 	if (check_ber(argv) == 1)
 		game->fd = open(argv[1], O_RDONLY);
-	game->res = process_file(game->fd);
+	if (game->fd < 0)
+	{
+		printf("err");
+		exit(0);
+	}
+	game->res = process_file(game->fd, 0, NULL, NULL);
 	game->q = ft_strtrim(game->res, "\n");
 	game->arr = check(game->q);
 	free(game->q);
@@ -64,6 +69,11 @@ int	main(int argc, char **argv)
 		mlx_hook(game.mlx_win, 2, 1L << 0, move_p, &game);
 		mlx_hook(game.mlx_win, 17, 1L << 0, ft_exit, &game);
 		mlx_loop(game.mlx);
+	}
+	else
+	{
+		printf("Errorrr");
+		exit(0);
 	}
 	return (0);
 }

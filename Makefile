@@ -46,22 +46,17 @@ OBJSBONUS   = $(SRCSB:.c=.o)
 
 %.o : %.c Makefile
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
-	# $(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@	
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME) 
 
-lib : 
-	make -C libft
-
 mlx :
 	make -C $(MLX)
 
 fclean: clean
 	rm -rf $(NAME)
-	make fclean -C libft
 	make clean -C mlx
 
 clean:	
@@ -71,5 +66,5 @@ clean:
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus lib mlx
+.PHONY: all clean fclean re bonus mlx
 #$(MLX_PATH)
