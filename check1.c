@@ -120,13 +120,3 @@ char	*process_file(int a)
 		exit (0);
 	return (res);
 }
-
-char	*pr(char *res)
-{
-	if (res == NULL)
-	{
-		printf("Error reading file\n");
-		exit(1);
-	}
-	return (res);
-}

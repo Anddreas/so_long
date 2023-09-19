@@ -23,7 +23,9 @@ SRCS =  main.c						\
 		check1.c					\
 		check2.c					\
 		check3.c					\
+		check4.c					\
 		player_move.c				\
+		player_move.1.c				\
 		check_and_exit.c			\
 		count_steps.c				\
 		coins_and_lastcheck.c		\

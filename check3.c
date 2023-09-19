@@ -103,9 +103,6 @@ void	check_symbols(char **arr, int *hasE, int *hasP, int *hasC)
 				*hasP += 1;
 			else if (arr[i][j] == 'C')
 				*hasC = 1;
-			// else if (arr[i][j] == 'C' && arr[i][j + 1] == 'E' && \
-			// arr[i][j - 1] == '1' && arr[i + 1][j] == '1' && arr[i][j + 1] == '1')
-			// 	exit(0);
 			j++;
 		}
 		i++;

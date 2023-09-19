@@ -90,19 +90,6 @@ void	last_check(t_list *game)
 	}
 }
 
-void	free_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
-}
-
 int	logic2(t_list *game, char **arr2, int rows)
 {
 	int	x;
@@ -115,12 +102,6 @@ int	logic2(t_list *game, char **arr2, int rows)
 	y = game->y;
 	arr2 = ft_strdup_matrix(game->arr, rows);
 	flood_fill(game, arr2, x, y);
-	while (arr2[i])
-	{
-		printf("%s\n",arr2[i]);
-		++i;
-	}
-	i = 0;
 	while (arr2 && arr2[i])
 	{
 		j = 0;

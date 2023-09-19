@@ -92,18 +92,3 @@ char	**ft_split(char const *s, char c)
 	str = ft_malloc(s, c, 0, 0);
 	return (str);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

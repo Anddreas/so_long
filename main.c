@@ -30,6 +30,22 @@ void	setup_game(t_list *game, char **argv)
 	last_check(game);
 }
 
+void	img_print(t_list *game)
+{
+	game->wall_img = mlx_xpm_file_to_image(game->mlx, \
+		"images/wall.xpm", &game->i, &game->j);
+		game->background = mlx_xpm_file_to_image(game->mlx, \
+		"images/bg.xpm", &game->i, &game->j);
+		game->player_img = mlx_xpm_file_to_image(game->mlx, \
+		"images/player.xpm", &game->i, &game->j);
+		game->coin_img = mlx_xpm_file_to_image(game->mlx, \
+		"images/coin.xpm", &game->i, &game->j);
+		game->open_door_img = mlx_xpm_file_to_image(game->mlx, \
+		"images/open_door.xpm", &game->i, &game->j);
+		game->close_door_img = mlx_xpm_file_to_image(game->mlx, \
+		"images/close_door.xpm", &game->i, &game->j);
+}
+
 int	main(int argc, char **argv)
 {	
 	t_list	game;
@@ -43,18 +59,7 @@ int	main(int argc, char **argv)
 		game.mlx = mlx_init();
 		game.mlx_win = mlx_new_window(game.mlx, game.width * 64, \
 		game.height * 64, "Hello world!");
-		game.wall_img = mlx_xpm_file_to_image(game.mlx, \
-		"images/wall.xpm", &game.i, &game.j);
-		game.background = mlx_xpm_file_to_image(game.mlx, \
-		"images/bg.xpm", &game.i, &game.j);
-		game.player_img = mlx_xpm_file_to_image(game.mlx, \
-		"images/player.xpm", &game.i, &game.j);
-		game.coin_img = mlx_xpm_file_to_image(game.mlx, \
-		"images/coin.xpm", &game.i, &game.j);
-		game.open_door_img = mlx_xpm_file_to_image(game.mlx, \
-		"images/open_door.xpm", &game.i, &game.j);
-		game.close_door_img = mlx_xpm_file_to_image(game.mlx, \
-		"images/close_door.xpm", &game.i, &game.j);
+		img_print(&game);
 		img(&game);
 		mlx_hook(game.mlx_win, 2, 1L << 0, move_p, &game);
 		mlx_hook(game.mlx_win, 17, 1L << 0, ft_exit, &game);

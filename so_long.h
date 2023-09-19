@@ -88,6 +88,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	go_up(t_list *game);
 void	go_down(t_list *game);
 void	go_left(t_list *game);
+void	free_map(char **map);
 void	go_right(t_list *game);
 void	check_door(t_list *game);
 void	c_exit(t_list *game);

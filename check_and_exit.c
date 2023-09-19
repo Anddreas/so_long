@@ -46,13 +46,9 @@ void	c_exit(t_list *game)
 
 void	flood_fill(t_list *game, char **map, int x, int y)
 {
-	// if (map[y][x] == 'E')
-	// 	return ;
 	if (map[x][y] == '1' || x < 1 || y < 1
 		|| y > game->width || x > game->height)
 		return ;
-	// else if (map[x][y] == 'E')
-	// 	return ;
 	map[x][y] = '1';
 	flood_fill(game, map, x - 1, y);
 	flood_fill(game, map, x + 1, y);
